@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ─── Brand Color Palette ─────────────────────────────────── */
+@theme {
+  --color-deep-blue: #0A1128;
+  --color-ocean-blue: #1E3A8A;
+  --color-sky-blue: #3B82F6;
+  --color-cyan: #06B6D4;
+  --color-electric-blue: #60A5FA;
+
+  --color-dark-900: #050505;
+  --color-dark-800: #0a0a0a;
+  --color-dark-700: #111111;
+  --color-dark-600: #1a1a1a;
+  --color-dark-500: #222222;
+  --color-dark-400: #333333;
+  --color-dark-300: #555555;
+
+  --color-light-100: #f5f5f5;
+  --color-light-200: #e5e5e5;
+  --color-light-300: #a3a3a3;
+  --color-light-400: #737373;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* ─── Base Resets ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-dark-800);
+  color: var(--color-light-100);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── Typography Scale ────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Selection ───────────────────────────────────────────── */
+::selection {
+  background-color: var(--color-sky-blue);
+  color: white;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-400);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sky-blue);
+}
+
+/* ─── Gradient Utilities ──────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-sky-blue) 0%, var(--color-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-ocean-blue), var(--color-cyan));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* ─── Glass Effect ────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+}
+
+/* ─── Glow Effects ────────────────────────────────────────── */
+.glow-blue {
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
+}
+
+.glow-sm {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+}
