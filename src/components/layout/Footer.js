@@ -9,24 +9,23 @@ const iconMap = { Linkedin, Facebook, Instagram, Twitter };
 
 export default function Footer() {
     return (
-        <footer className="relative border-t border-white/5 bg-dark-900">
+        <footer className="relative border-t border-white/[0.04]">
             {/* Main Footer */}
-            <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-                    {/* Col 1: Company Info */}
-                    <div className="space-y-4">
+            <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-8">
+                <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+                    {/* Col 1: Company */}
+                    <div className="space-y-5">
                         <a href="/" className="inline-block">
                             <span className="text-xl font-bold font-display">
                                 <span className="gradient-text">AAA</span>{" "}
-                                <span className="text-light-100">Digital Media</span>
+                                <span className="text-white">Digital Media</span>
                             </span>
                         </a>
-                        <p className="text-sm leading-relaxed text-light-400">
-                            Transforming brands into global success stories. World-class digital
-                            solutions from Karachi to the world.
+                        <p className="text-sm leading-relaxed text-neutral-500">
+                            Transforming brands into global success stories.
+                            World-class digital solutions from Karachi to the world.
                         </p>
-                        {/* Social Icons */}
-                        <div className="flex items-center gap-3 pt-2">
+                        <div className="flex items-center gap-2.5 pt-1">
                             {SOCIAL_LINKS.map((link) => {
                                 const Icon = iconMap[link.icon];
                                 return (
@@ -35,10 +34,10 @@ export default function Footer() {
                                         href={link.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-light-400 transition-all duration-200 hover:border-sky-blue/50 hover:text-sky-blue hover:bg-sky-blue/5"
+                                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.08] text-neutral-500 transition-all duration-200 hover:border-sky-blue/30 hover:text-sky-blue hover:bg-sky-blue/5"
                                         aria-label={link.platform}
                                     >
-                                        <Icon size={16} />
+                                        <Icon size={15} />
                                     </a>
                                 );
                             })}
@@ -47,15 +46,15 @@ export default function Footer() {
 
                     {/* Col 2: Services */}
                     <div>
-                        <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-light-200">
+                        <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-400">
                             Services
                         </h4>
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-3">
                             {services.slice(0, 6).map((service) => (
                                 <li key={service.id}>
                                     <a
                                         href={`/services/${service.id}`}
-                                        className="text-sm text-light-400 transition-colors duration-200 hover:text-sky-blue"
+                                        className="text-sm text-neutral-500 transition-colors duration-200 hover:text-white"
                                     >
                                         {service.title}
                                     </a>
@@ -64,45 +63,37 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Col 3: Quick Links */}
+                    {/* Col 3: Company Links */}
                     <div>
-                        <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-light-200">
+                        <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-400">
                             Company
                         </h4>
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-3">
                             {NAVIGATION.map((item) => (
                                 <li key={item.name}>
                                     <a
                                         href={item.href}
-                                        className="text-sm text-light-400 transition-colors duration-200 hover:text-sky-blue"
+                                        className="text-sm text-neutral-500 transition-colors duration-200 hover:text-white"
                                     >
                                         {item.name}
                                     </a>
                                 </li>
                             ))}
-                            <li>
-                                <a
-                                    href="/faq"
-                                    className="text-sm text-light-400 transition-colors duration-200 hover:text-sky-blue"
-                                >
-                                    FAQ
-                                </a>
-                            </li>
                         </ul>
                     </div>
 
                     {/* Col 4: Contact */}
                     <div>
-                        <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-light-200">
+                        <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-400">
                             Get in Touch
                         </h4>
-                        <ul className="space-y-3">
+                        <ul className="space-y-3.5">
                             <li>
                                 <a
                                     href={`mailto:${COMPANY.email}`}
-                                    className="flex items-center gap-2 text-sm text-light-400 transition-colors duration-200 hover:text-sky-blue"
+                                    className="flex items-center gap-2.5 text-sm text-neutral-500 transition-colors duration-200 hover:text-white"
                                 >
-                                    <Mail size={14} />
+                                    <Mail size={14} className="shrink-0" />
                                     {COMPANY.email}
                                 </a>
                             </li>
@@ -111,22 +102,21 @@ export default function Footer() {
                                     href={COMPANY.whatsappUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 text-sm text-light-400 transition-colors duration-200 hover:text-sky-blue"
+                                    className="flex items-center gap-2.5 text-sm text-neutral-500 transition-colors duration-200 hover:text-white"
                                 >
-                                    <Phone size={14} />
+                                    <Phone size={14} className="shrink-0" />
                                     {COMPANY.phone}
                                 </a>
                             </li>
-                            <li className="flex items-start gap-2 text-sm text-light-400">
+                            <li className="flex items-start gap-2.5 text-sm text-neutral-500">
                                 <MapPin size={14} className="mt-0.5 shrink-0" />
                                 <span>{COMPANY.address}<br />Serving Worldwide 🌍</span>
                             </li>
                         </ul>
 
-                        {/* CTA */}
                         <a
                             href="/contact"
-                            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-sky-blue transition-colors hover:text-cyan"
+                            className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-sky-blue transition-colors hover:text-cyan"
                         >
                             Start a Project <ArrowUpRight size={14} />
                         </a>
@@ -135,16 +125,16 @@ export default function Footer() {
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-white/5">
-                <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 sm:flex-row sm:px-6 lg:px-8">
-                    <p className="text-xs text-light-400">
+            <div className="border-t border-white/[0.04]">
+                <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-2 px-6 py-6 sm:flex-row lg:px-8">
+                    <p className="text-xs text-neutral-600">
                         © {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-4 text-xs text-light-400">
-                        <a href="/privacy" className="hover:text-light-200 transition-colors">
+                    <div className="flex items-center gap-5 text-xs text-neutral-600">
+                        <a href="/privacy" className="hover:text-neutral-400 transition-colors">
                             Privacy Policy
                         </a>
-                        <a href="/terms" className="hover:text-light-200 transition-colors">
+                        <a href="/terms" className="hover:text-neutral-400 transition-colors">
                             Terms of Service
                         </a>
                     </div>

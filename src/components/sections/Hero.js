@@ -4,118 +4,120 @@ import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: { staggerChildren: 0.2, delayChildren: 0.3 },
+    },
+};
+
+const textItem = {
+    hidden: { y: "100%", opacity: 0 },
+    show: {
+        y: 0,
+        opacity: 1,
+        transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+    },
+};
+
 export default function Hero() {
     return (
-        <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-dark-900">
-            {/* Gradient Mesh Background */}
+        <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+            {/* Ambient Background Glows */}
             <div className="absolute inset-0 overflow-hidden">
-                {/* Primary gradient orb */}
                 <motion.div
-                    className="absolute -left-[20%] -top-[20%] h-[60%] w-[60%] rounded-full bg-ocean-blue/20 blur-[120px]"
-                    animate={{
-                        x: [0, 30, 0],
-                        y: [0, -20, 0],
-                    }}
+                    className="absolute -left-[25%] -top-[25%] h-[60%] w-[60%] rounded-full bg-sky-blue/8 blur-[150px]"
+                    animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute -bottom-[15%] -right-[15%] h-[50%] w-[50%] rounded-full bg-ocean-blue/10 blur-[120px]"
+                    animate={{ x: [0, -30, 0], y: [0, 40, 0] }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute left-1/2 top-1/3 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-cyan/5 blur-[100px]"
+                    animate={{ scale: [1, 1.3, 1] }}
                     transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
                 />
-                {/* Secondary gradient orb */}
-                <motion.div
-                    className="absolute -bottom-[10%] -right-[10%] h-[50%] w-[50%] rounded-full bg-sky-blue/15 blur-[100px]"
-                    animate={{
-                        x: [0, -20, 0],
-                        y: [0, 30, 0],
-                    }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                />
-                {/* Cyan accent */}
-                <motion.div
-                    className="absolute left-1/2 top-1/2 h-[30%] w-[30%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan/10 blur-[80px]"
-                    animate={{
-                        scale: [1, 1.2, 1],
-                    }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                />
-                {/* Grid pattern overlay */}
+                {/* Grid pattern */}
                 <div
-                    className="absolute inset-0 opacity-[0.03]"
+                    className="absolute inset-0 opacity-[0.02]"
                     style={{
                         backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-                        backgroundSize: "60px 60px",
+                        backgroundSize: "80px 80px",
                     }}
                 />
             </div>
 
-            {/* Sparkle Decorations */}
-            <motion.div
-                className="absolute right-[15%] top-[20%] text-sky-blue/60"
-                animate={{ rotate: 360, scale: [1, 1.3, 1] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-                </svg>
-            </motion.div>
-            <motion.div
-                className="absolute left-[10%] top-[35%] text-cyan/40"
-                animate={{ rotate: -360, scale: [1, 1.2, 1] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-            >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-                </svg>
-            </motion.div>
-            <motion.div
-                className="absolute bottom-[25%] right-[25%] text-electric-blue/30"
-                animate={{ rotate: 360, scale: [1, 1.4, 1] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-            >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-                </svg>
-            </motion.div>
-
             {/* Hero Content */}
-            <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-                {/* Label badge */}
+            <div className="relative z-10 mx-auto max-w-[1600px] px-6 text-center">
+                {/* Badge */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-light-300 backdrop-blur-sm"
+                    transition={{ delay: 0.1 }}
+                    className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-sm text-light-300 backdrop-blur-sm"
                 >
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
+                    <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-sky-blue opacity-75 animate-ping" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-blue" />
+                    </span>
                     Trusted by brands in 15+ countries
                 </motion.div>
 
-                {/* Main Headline */}
+                {/* Title – Portfolio-like massive typography */}
                 <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="mx-auto max-w-5xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+                    variants={container}
+                    initial="hidden"
+                    animate="show"
+                    className="font-display font-extrabold text-[clamp(2.5rem,8vw,7rem)] leading-[0.95] tracking-tighter"
                 >
-                    Transforming Brands Into{" "}
-                    <span className="gradient-text">Global Success</span>{" "}
-                    Stories
+                    <div className="overflow-hidden">
+                        <motion.span
+                            variants={textItem}
+                            className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-neutral-400 pb-2"
+                        >
+                            Transforming Brands
+                        </motion.span>
+                    </div>
+                    <div className="overflow-hidden">
+                        <motion.span
+                            variants={textItem}
+                            className="block pb-2"
+                        >
+                            Into{" "}
+                            <span className="gradient-text">Global Success</span>
+                        </motion.span>
+                    </div>
+                    <div className="overflow-hidden">
+                        <motion.span
+                            variants={textItem}
+                            className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-neutral-500"
+                        >
+                            Stories
+                        </motion.span>
+                    </div>
                 </motion.h1>
 
-                {/* Subheadline */}
+                {/* Subtitle */}
                 <motion.p
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.35 }}
-                    className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-light-400 sm:text-lg md:text-xl"
+                    transition={{ delay: 1, duration: 0.8 }}
+                    className="mx-auto mt-8 max-w-2xl text-lg text-neutral-400 leading-relaxed md:text-xl"
                 >
-                    We&apos;re a full-service digital agency delivering world-class
-                    marketing, web &amp; app development, and creative solutions — from
-                    Karachi to the world.
+                    A full-service digital agency delivering world-class marketing,
+                    web &amp; app development, and creative solutions — from Karachi
+                    to the world.
                 </motion.p>
 
                 {/* CTAs */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
+                    transition={{ delay: 1.2, duration: 0.6 }}
                     className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
                 >
                     <Button href="/contact" size="lg">
@@ -130,18 +132,18 @@ export default function Hero() {
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                    className="mt-16 flex flex-col items-center gap-3"
+                    transition={{ duration: 1, delay: 1.6 }}
+                    className="mt-20 flex flex-col items-center gap-4"
                 >
-                    <p className="text-xs uppercase tracking-widest text-light-400/60">
+                    <p className="text-xs uppercase tracking-[0.2em] text-neutral-600 font-medium">
                         Trusted by industry leaders
                     </p>
-                    <div className="flex items-center gap-8 opacity-40">
+                    <div className="flex items-center gap-10 opacity-30">
                         {["Enterprise Co.", "TechStart", "GrowthX", "MediaPro", "ScaleUp"].map(
                             (name) => (
                                 <span
                                     key={name}
-                                    className="hidden text-sm font-semibold text-light-300 sm:block"
+                                    className="hidden text-sm font-semibold text-neutral-400 sm:block"
                                 >
                                     {name}
                                 </span>
@@ -150,7 +152,7 @@ export default function Hero() {
                         {["Enterprise", "TechStart", "GrowthX"].map((name) => (
                             <span
                                 key={`m-${name}`}
-                                className="text-sm font-semibold text-light-300 sm:hidden"
+                                className="text-sm font-semibold text-neutral-400 sm:hidden"
                             >
                                 {name}
                             </span>
@@ -161,11 +163,11 @@ export default function Hero() {
 
             {/* Scroll Indicator */}
             <motion.div
-                className="absolute bottom-8 left-1/2 -translate-x-1/2"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute bottom-10 left-1/2 -translate-x-1/2"
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             >
-                <ChevronDown size={24} className="text-light-400/40" />
+                <ChevronDown size={24} className="text-neutral-600" />
             </motion.div>
         </section>
     );

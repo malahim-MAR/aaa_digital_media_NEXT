@@ -3,56 +3,46 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { fadeInUp } from "@/lib/animations";
 
 export default function CTASection() {
     return (
-        <section className="relative overflow-hidden py-20 md:py-28">
+        <section className="relative overflow-hidden py-28 md:py-36 lg:py-44">
             {/* Background */}
             <div className="absolute inset-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-ocean-blue/30 via-dark-800 to-dark-900" />
-                <div className="absolute left-1/2 top-1/2 h-[60%] w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-blue/10 blur-[100px]" />
-                {/* Grid pattern */}
+                <div className="absolute inset-0 bg-gradient-to-br from-ocean-blue/20 via-transparent to-transparent" />
+                <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-blue/8 blur-[120px]" />
                 <div
-                    className="absolute inset-0 opacity-[0.03]"
+                    className="absolute inset-0 opacity-[0.02]"
                     style={{
                         backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-                        backgroundSize: "40px 40px",
+                        backgroundSize: "60px 60px",
                     }}
                 />
             </div>
 
             <motion.div
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8"
+                transition={{ duration: 0.8 }}
+                className="relative mx-auto max-w-4xl px-6 text-center"
             >
-                <motion.h2
-                    variants={fadeInUp}
-                    className="text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl"
-                >
+                <h2 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95]">
                     Ready to Scale Your Business{" "}
                     <span className="gradient-text">Globally?</span>
-                </motion.h2>
-                <motion.p
-                    variants={fadeInUp}
-                    className="mx-auto mt-5 max-w-2xl text-base text-light-400 sm:text-lg"
-                >
-                    Whether you&apos;re in New York or Karachi, we&apos;re ready to help. Let&apos;s
-                    build something extraordinary together.
-                </motion.p>
-                <motion.div
-                    variants={fadeInUp}
-                    className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-                >
+                </h2>
+                <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-400 leading-relaxed">
+                    Whether you&apos;re in New York or Karachi, we&apos;re ready
+                    to help. Let&apos;s build something extraordinary together.
+                </p>
+                <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <Button href="/contact" size="lg">
                         Start Your Project <ArrowRight size={18} />
                     </Button>
                     <Button href="/services" variant="secondary" size="lg">
                         Explore Services
                     </Button>
-                </motion.div>
+                </div>
             </motion.div>
         </section>
     );

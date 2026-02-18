@@ -6,133 +6,147 @@ import {
     Palette, Search, Share2, Camera, ArrowRight, Sparkles,
 } from "lucide-react";
 import { services } from "@/lib/data";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
 import Badge from "@/components/ui/Badge";
-import SectionWrapper from "@/components/ui/SectionWrapper";
 
 const iconMap = {
     TrendingUp, Globe, Smartphone, AppWindow,
     Palette, Search, Share2, Camera,
 };
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+    },
+};
+
+const cardVariant = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+    },
+};
+
 export default function ServicesOverview() {
-    // Take the first 6 for homepage display
     const displayed = services.slice(0, 6);
 
     return (
-        <SectionWrapper id="services" className="relative">
-            {/* Section Header */}
-            <div className="mb-14 max-w-2xl">
-                <motion.p
-                    variants={fadeInUp}
-                    className="mb-3 text-sm font-medium uppercase tracking-widest text-sky-blue"
+        <section className="relative py-28 md:py-36 lg:py-44 border-t border-white/[0.04]">
+            {/* Background accent */}
+            <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-blue/[0.03] blur-[150px]" />
+
+            <div className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-8">
+                {/* Section Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="mb-16 md:mb-20 max-w-2xl"
                 >
-                    Our Services
-                </motion.p>
-                <motion.h2
-                    variants={fadeInUp}
-                    className="text-3xl font-bold sm:text-4xl md:text-5xl"
+                    <div className="section-label mb-4">
+                        <span className="label-dot" />
+                        Our Services
+                    </div>
+                    <h2 className="text-4xl font-bold sm:text-5xl md:text-6xl leading-[1]">
+                        Full-Service Digital{" "}
+                        <span className="gradient-text">Solutions</span>
+                    </h2>
+                    <p className="mt-5 text-lg text-neutral-400 leading-relaxed">
+                        From strategy to execution — everything your brand needs to
+                        dominate the digital landscape, under one roof.
+                    </p>
+                </motion.div>
+
+                {/* Bento Grid */}
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
+                    className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
                 >
-                    Full-Service Digital{" "}
-                    <span className="gradient-text">Solutions</span>
-                </motion.h2>
-                <motion.p
-                    variants={fadeInUp}
-                    className="mt-4 text-base text-light-400 leading-relaxed"
-                >
-                    From strategy to execution — everything your brand needs to dominate
-                    the digital landscape, under one roof.
-                </motion.p>
-            </div>
+                    {displayed.map((service, index) => {
+                        const Icon = iconMap[service.icon] || Globe;
+                        const isFeatured = index < 2;
 
-            {/* Bento Grid */}
-            <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
-            >
-                {displayed.map((service, index) => {
-                    const Icon = iconMap[service.icon] || Globe;
-                    // Make first two cards tall on large screens
-                    const isFeatured = index < 2;
+                        return (
+                            <motion.a
+                                key={service.id}
+                                href={`/services/${service.id}`}
+                                variants={cardVariant}
+                                className={`chrome-card group flex flex-col justify-between p-7 lg:p-8 ${isFeatured ? "lg:row-span-2" : ""
+                                    }`}
+                            >
+                                {/* Hover gradient */}
+                                <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-sky-blue/0 blur-[70px] transition-all duration-500 group-hover:bg-sky-blue/8" />
 
-                    return (
-                        <motion.a
-                            key={service.id}
-                            href={`/services/${service.id}`}
-                            variants={fadeInUp}
-                            className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-300 hover:border-sky-blue/30 hover:bg-white/[0.04] hover:shadow-[0_0_40px_rgba(59,130,246,0.08)] ${isFeatured ? "lg:row-span-2 lg:p-8" : ""
-                                }`}
-                        >
-                            {/* Hover gradient glow */}
-                            <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-sky-blue/0 blur-[60px] transition-all duration-500 group-hover:bg-sky-blue/10" />
+                                <div>
+                                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                                        <Icon size={22} className="text-sky-blue" />
+                                    </div>
 
-                            <div>
-                                {/* Icon */}
-                                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                                    <Icon size={22} className="text-sky-blue" />
-                                </div>
+                                    <div className="mb-3 flex items-center gap-2">
+                                        <h3 className="text-xl font-semibold text-neutral-100 group-hover:text-white transition-colors">
+                                            {service.title}
+                                        </h3>
+                                        {service.isNew && (
+                                            <Badge variant="new">
+                                                <Sparkles size={10} /> New
+                                            </Badge>
+                                        )}
+                                    </div>
 
-                                {/* Title + Badge */}
-                                <div className="mb-2 flex items-center gap-2">
-                                    <h3 className="text-lg font-semibold text-light-100 group-hover:text-white">
-                                        {service.title}
-                                    </h3>
-                                    {service.isNew && (
-                                        <Badge variant="new">
-                                            <Sparkles size={10} /> New
-                                        </Badge>
+                                    <p className="text-sm leading-relaxed text-neutral-400">
+                                        {service.shortDesc}
+                                    </p>
+
+                                    {isFeatured && (
+                                        <ul className="mt-5 hidden space-y-2 lg:block">
+                                            {service.features.slice(0, 4).map((feat) => (
+                                                <li
+                                                    key={feat}
+                                                    className="flex items-center gap-2.5 text-sm text-neutral-500"
+                                                >
+                                                    <span className="h-1 w-1 shrink-0 rounded-full bg-sky-blue/60" />
+                                                    {feat}
+                                                </li>
+                                            ))}
+                                        </ul>
                                     )}
                                 </div>
 
-                                {/* Description */}
-                                <p className="text-sm leading-relaxed text-light-400">
-                                    {service.shortDesc}
-                                </p>
+                                <div className="mt-6 flex items-center gap-1.5 text-sm font-medium text-sky-blue opacity-0 transition-all duration-300 group-hover:opacity-100">
+                                    Learn more
+                                    <ArrowRight
+                                        size={14}
+                                        className="transition-transform group-hover:translate-x-1"
+                                    />
+                                </div>
+                            </motion.a>
+                        );
+                    })}
+                </motion.div>
 
-                                {/* Extended info for featured cards */}
-                                {isFeatured && (
-                                    <ul className="mt-4 hidden space-y-1.5 lg:block">
-                                        {service.features.slice(0, 4).map((feat) => (
-                                            <li
-                                                key={feat}
-                                                className="flex items-center gap-2 text-xs text-light-400"
-                                            >
-                                                <span className="h-1 w-1 rounded-full bg-sky-blue/60" />
-                                                {feat}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
-
-                            {/* Arrow */}
-                            <div className="mt-5 flex items-center gap-1 text-sm font-medium text-sky-blue opacity-0 transition-all duration-300 group-hover:opacity-100">
-                                Learn more{" "}
-                                <ArrowRight
-                                    size={14}
-                                    className="transition-transform group-hover:translate-x-1"
-                                />
-                            </div>
-                        </motion.a>
-                    );
-                })}
-            </motion.div>
-
-            {/* View All */}
-            <motion.div
-                variants={fadeInUp}
-                className="mt-10 text-center"
-            >
-                <a
-                    href="/services"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-light-300 transition-colors hover:text-sky-blue"
+                {/* View All */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                    className="mt-12 text-center"
                 >
-                    View all services <ArrowRight size={14} />
-                </a>
-            </motion.div>
-        </SectionWrapper>
+                    <a
+                        href="/services"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-neutral-400 transition-colors hover:text-sky-blue"
+                    >
+                        View all 8 services <ArrowRight size={14} />
+                    </a>
+                </motion.div>
+            </div>
+        </section>
     );
 }

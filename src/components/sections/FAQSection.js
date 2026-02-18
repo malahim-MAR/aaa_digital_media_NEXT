@@ -4,8 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { generalFaqs } from "@/lib/data";
-import { fadeInUp, staggerContainer } from "@/lib/animations";
-import SectionWrapper from "@/components/ui/SectionWrapper";
 
 export default function FAQSection() {
     const [openIndex, setOpenIndex] = useState(null);
@@ -13,43 +11,47 @@ export default function FAQSection() {
     const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
     return (
-        <SectionWrapper>
-            <div className="mx-auto max-w-3xl">
-                {/* Section Header */}
-                <motion.div variants={fadeInUp} className="mb-12 text-center">
-                    <p className="mb-3 text-sm font-medium uppercase tracking-widest text-sky-blue">
+        <section className="relative py-28 md:py-36 lg:py-44 border-t border-white/[0.04]">
+            <div className="mx-auto max-w-3xl px-6 lg:px-8">
+                {/* Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="mb-14 text-center"
+                >
+                    <div className="section-label mb-4 justify-center">
+                        <span className="label-dot" />
                         FAQ
-                    </p>
-                    <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl">
+                    </div>
+                    <h2 className="text-4xl font-bold sm:text-5xl md:text-6xl">
                         Your Questions{" "}
                         <span className="gradient-text">Answered</span>
                     </h2>
                 </motion.div>
 
                 {/* Accordion */}
-                <motion.div
-                    variants={staggerContainer}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="space-y-3"
-                >
+                <div className="space-y-3">
                     {generalFaqs.map((faq, i) => (
                         <motion.div
                             key={i}
-                            variants={fadeInUp}
-                            className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden transition-colors duration-200 hover:border-white/10"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.06, duration: 0.5 }}
+                            className="chrome-card overflow-hidden"
                         >
                             <button
                                 onClick={() => toggle(i)}
-                                className="flex w-full items-center justify-between px-6 py-4 text-left"
+                                className="flex w-full items-center justify-between px-6 py-5 text-left"
                             >
-                                <span className="text-sm font-medium text-light-100 pr-4 sm:text-base">
+                                <span className="text-base font-medium text-neutral-100 pr-4">
                                     {faq.question}
                                 </span>
                                 <ChevronDown
                                     size={18}
-                                    className={`shrink-0 text-light-400 transition-transform duration-300 ${openIndex === i ? "rotate-180 text-sky-blue" : ""
+                                    className={`shrink-0 text-neutral-500 transition-transform duration-300 ${openIndex === i ? "rotate-180 text-sky-blue" : ""
                                         }`}
                                 />
                             </button>
@@ -62,8 +64,8 @@ export default function FAQSection() {
                                         exit={{ height: 0, opacity: 0 }}
                                         transition={{ duration: 0.3, ease: "easeInOut" }}
                                     >
-                                        <div className="px-6 pb-4">
-                                            <p className="text-sm leading-relaxed text-light-400">
+                                        <div className="px-6 pb-5">
+                                            <p className="text-sm leading-relaxed text-neutral-400">
                                                 {faq.answer}
                                             </p>
                                         </div>
@@ -72,8 +74,8 @@ export default function FAQSection() {
                             </AnimatePresence>
                         </motion.div>
                     ))}
-                </motion.div>
+                </div>
             </div>
-        </SectionWrapper>
+        </section>
     );
 }
