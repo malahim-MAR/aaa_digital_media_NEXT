@@ -1,128 +1,83 @@
-
 "use client";
-
-import { useState, useEffect } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
-import { NAV } from "@/lib/data";
+import { useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import Link from "next/link";
+import { Menu, ArrowUpRight } from "lucide-react";
 
 export default function Navbar() {
+    const { scrollY } = useScroll();
+    const [hidden, setHidden] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [open, setOpen] = useState(false);
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 40);
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        const previous = scrollY.getPrevious() || 0;
+        if (latest > previous && latest > 150) setHidden(true);
+        else setHidden(false);
 
-    useEffect(() => {
-        document.body.style.overflow = open ? "hidden" : "";
-        return () => { document.body.style.overflow = ""; };
-    }, [open]);
+        if (latest > 50) setScrolled(true);
+        else setScrolled(false);
+    });
 
     return (
-        <>
-            <header
+        <motion.header
+            variants={{ visible: { y: 0 }, hidden: { y: -100 } }}
+            animate={hidden ? "hidden" : "visible"}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            style={{
+                position: "fixed", top: 0, left: 0, width: "100%", zIndex: 50,
+                display: "flex", justifyContent: "center",
+                padding: "0 24px", paddingTop: scrolled ? 16 : 32,
+                transition: "padding 0.3s",
+            }}
+        >
+            <nav
                 style={{
-                    position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-                    padding: scrolled ? "12px 0" : "20px 0",
-                    background: scrolled ? "rgba(10,13,18,0.85)" : "transparent",
-                    backdropFilter: scrolled ? "blur(20px)" : "none",
-                    borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
-                    transition: "all .3s",
+                    position: "relative",
+                    display: "flex", alignItems: "center", justifyContent: "space-between",
+                    padding: "12px 24px", borderRadius: 100,
+                    transition: "all 0.3s",
+                    border: scrolled ? "1px solid rgba(0, 166, 251, 0.15)" : "1px solid transparent", /* Cyan tint border */
+                    background: scrolled ? "rgba(10, 20, 40, 0.85)" : "transparent", /* Deep Navy Glass */
+                    backdropFilter: scrolled ? "blur(12px)" : "none",
+                    width: scrolled ? "100%" : "100%", maxWidth: scrolled ? 1024 : 1600,
                 }}
             >
-                <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    {/* Logo */}
-                    <a href="#home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-                        <div style={{
-                            width: 32, height: 32, borderRadius: 9,
-                            background: "linear-gradient(135deg,#2563EB,#00C2FF)",
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            boxShadow: "0 4px 16px rgba(37,99,235,0.35)",
-                        }}>
-                            <span style={{ color: "#fff", fontWeight: 900, fontSize: 14 }}>A</span>
-                        </div>
-                        <span style={{ fontWeight: 700, fontSize: 15, color: "#EEF2FF" }}>
-                            AAA <span style={{ color: "#8892A4", fontWeight: 500 }}>Digital Media</span>
-                        </span>
-                    </a>
+                {/* Logo */}
+                <Link href="/" style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.02em", color: "#FFFFFF", textDecoration: "none" }}>
+                    AAA<span style={{ color: "#00A6FB" }}>Digital</span> {/* Electric Cyan Accent */}
+                </Link>
 
-                    {/* Desktop nav */}
-                    <nav style={{ display: "flex", gap: 4 }} className="hidden md:flex">
-                        {NAV.map(n => (
-                            <a key={n.label} href={n.href} style={{
-                                padding: "8px 16px", borderRadius: 8, fontSize: 14, fontWeight: 500,
-                                color: "#8892A4", textDecoration: "none", transition: "all .2s",
-                            }}
-                                onMouseEnter={e => { e.target.style.color = "#EEF2FF"; e.target.style.background = "rgba(255,255,255,0.05)"; }}
-                                onMouseLeave={e => { e.target.style.color = "#8892A4"; e.target.style.background = "transparent"; }}
-                            >
-                                {n.label}
-                            </a>
-                        ))}
-                    </nav>
+                {/* Desktop Links */}
+                <div className="hidden md:flex" style={{ gap: 32, alignItems: "center" }}>
+                    {["Work", "Services", "About", "Contact"].map((item) => (
+                        <Link
+                            key={item}
+                            href={`#${item.toLowerCase()}`}
+                            style={{ fontSize: 14, fontWeight: 500, color: "#CECECE", textDecoration: "none", transition: "color 0.2s" }}
+                            onMouseEnter={(e) => e.target.style.color = "#00A6FB"} /* Cyan Hover */
+                            onMouseLeave={(e) => e.target.style.color = "#CECECE"}
+                        >
+                            {item}
+                        </Link>
+                    ))}
+                </div>
 
-                    {/* CTA */}
-                    <a href="#contact" className="btn btn-primary hidden md:inline-flex" style={{ fontSize: 13, padding: "10px 20px" }}>
-                        Start a Project <ArrowRight size={14} />
-                    </a>
-
-                    {/* Hamburger */}
-                    <button
-                        onClick={() => setOpen(true)}
-                        className="md:hidden"
-                        style={{
-                            width: 36, height: 36, borderRadius: 8,
-                            border: "1px solid rgba(255,255,255,0.09)",
-                            background: "transparent", color: "#8892A4",
-                            display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer",
-                        }}
+                {/* CTA */}
+                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                    <Link
+                        href="#contact"
+                        className="btn btn-primary hidden md:inline-flex"
+                        style={{ fontSize: 13, gap: 8, padding: "10px 24px" }}
                     >
-                        <Menu size={18} />
+                        Let&apos;s Talk <ArrowUpRight size={16} />
+                    </Link>
+
+                    {/* Mobile Menu Button - Visual Only */}
+                    <button className="md:hidden" style={{ color: "#fff", background: "transparent", border: "none" }}>
+                        <Menu size={24} />
                     </button>
                 </div>
-            </header>
-
-            {/* Mobile drawer */}
-            {open && (
-                <div style={{ position: "fixed", inset: 0, zIndex: 100 }}>
-                    <div
-                        onClick={() => setOpen(false)}
-                        style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
-                    />
-                    <div style={{
-                        position: "absolute", top: 0, right: 0, bottom: 0, width: 280,
-                        background: "#0D1219", borderLeft: "1px solid rgba(255,255,255,0.07)",
-                        padding: 24, display: "flex", flexDirection: "column",
-                    }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
-                            <span style={{ fontWeight: 700, fontSize: 14, color: "#EEF2FF" }}>Menu</span>
-                            <button onClick={() => setOpen(false)} style={{
-                                width: 32, height: 32, borderRadius: 8, border: "1px solid rgba(255,255,255,0.09)",
-                                background: "transparent", color: "#8892A4", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer",
-                            }}>
-                                <X size={15} />
-                            </button>
-                        </div>
-                        <nav style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                            {NAV.map(n => (
-                                <a key={n.label} href={n.href} onClick={() => setOpen(false)} style={{
-                                    padding: "12px 16px", borderRadius: 10, fontSize: 15, fontWeight: 500,
-                                    color: "#8892A4", textDecoration: "none",
-                                }}>
-                                    {n.label}
-                                </a>
-                            ))}
-                        </nav>
-                        <div style={{ marginTop: "auto", paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-                            <a href="#contact" onClick={() => setOpen(false)} className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }}>
-                                Start a Project <ArrowRight size={14} />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-        </>
+            </nav>
+        </motion.header>
     );
 }

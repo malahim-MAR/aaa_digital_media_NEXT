@@ -1,100 +1,91 @@
-
 "use client";
 
-import { SERVICES, SOCIAL_LINKS } from "@/lib/data";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Github, Linkedin, Mail, Twitter } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-            <div className="wrap" style={{ padding: "56px 0 32px" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40 }} className="footer-grid">
-                    {/* Brand */}
-                    <div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-                            <div style={{
-                                width: 30, height: 30, borderRadius: 8,
-                                background: "linear-gradient(135deg,#2563EB,#00C2FF)",
-                                display: "flex", alignItems: "center", justifyContent: "center",
-                            }}>
-                                <span style={{ color: "#fff", fontWeight: 900, fontSize: 13 }}>A</span>
-                            </div>
-                            <span style={{ fontWeight: 700, fontSize: 14, color: "#EEF2FF" }}>
-                                AAA <span style={{ color: "#8892A4", fontWeight: 500 }}>Digital Media</span>
-                            </span>
-                        </div>
-                        <p style={{ fontSize: 13, color: "#3D4A5C", lineHeight: 1.7, maxWidth: 220, marginBottom: 20 }}>
-                            Full-service digital agency delivering world-class results from Karachi to the world.
-                        </p>
-                        <div style={{ display: "flex", gap: 8 }}>
-                            {SOCIAL_LINKS.map((Icon, i) => (
-                                <a key={i} href="#" style={{
-                                    width: 32, height: 32, borderRadius: 8, border: "1px solid rgba(255,255,255,0.07)",
-                                    display: "flex", alignItems: "center", justifyContent: "center",
-                                    color: "#3D4A5C", textDecoration: "none", transition: "all .2s",
+        <footer id="contact" style={{ padding: "128px 0", borderTop: "1px solid rgba(0, 166, 251, 0.1)", position: "relative", overflow: "hidden" }}>
+            <div className="wrap" style={{ position: "relative", zIndex: 10 }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+                    <motion.span
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        style={{
+                            display: "block", fontSize: 13, fontWeight: 700, letterSpacing: "0.2em",
+                            textTransform: "uppercase", color: "#00A6FB", marginBottom: 32, /* Cyan */
+                        }}
+                    >
+                        Ready for Growth?
+                    </motion.span>
+
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        style={{
+                            fontSize: "clamp(3rem, 10vw, 8rem)", fontWeight: 800, lineHeight: 0.8,
+                            marginBottom: 48, letterSpacing: "-0.04em",
+                            color: "#FFFFFF"
+                        }}
+                    >
+                        Start Your <br />
+                        <span style={{ color: "#0077B6" }}>Project Today.</span> {/* Royal Blue */}
+                    </motion.h2>
+
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        style={{ marginTop: 48, marginBottom: 48 }}
+                    >
+                        <a href="mailto:contact@aaadigitalmedia.com" className="btn btn-primary" style={{ fontSize: 20, padding: "24px 48px", borderRadius: 100, fontWeight: 700, gap: 16 }}>
+                            Get a Free Quote <ArrowUpRight size={24} />
+                        </a>
+                    </motion.div>
+
+                    <div style={{ display: "flex", gap: 32, marginTop: 64 }}>
+                        {[
+                            { icon: <Github size={20} />, href: "#" },
+                            { icon: <Linkedin size={20} />, href: "#" },
+                            { icon: <Twitter size={20} />, href: "#" },
+                            { icon: <Mail size={20} />, href: "mailto:contact@aaadigitalmedia.com" },
+                        ].map((social, i) => (
+                            <a
+                                key={i}
+                                href={social.href}
+                                style={{
+                                    width: 56, height: 56, borderRadius: 50, border: "1px solid rgba(255,255,255,0.1)",
+                                    display: "flex", alignItems: "center", justifyContent: "center", color: "#CECECE",
+                                    transition: "all 0.3s"
                                 }}
-                                    onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(37,99,235,0.3)"; e.currentTarget.style.color = "#60A5FA"; }}
-                                    onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; e.currentTarget.style.color = "#3D4A5C"; }}
-                                >
-                                    <Icon size={13} />
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Services */}
-                    <div>
-                        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "#8892A4", marginBottom: 16 }}>Services</p>
-                        {SERVICES.map(s => (
-                            <a key={s.title} href="#services" style={{ display: "block", fontSize: 13, color: "#3D4A5C", textDecoration: "none", marginBottom: 10, transition: "color .2s" }}
-                                onMouseEnter={e => e.target.style.color = "#EEF2FF"}
-                                onMouseLeave={e => e.target.style.color = "#3D4A5C"}
+                                /* Hover: Cyan Glow */
+                                onMouseEnter={(e) => {
+                                    e.target.style.color = "#00A6FB";
+                                    e.target.style.borderColor = "#00A6FB";
+                                    e.target.style.boxShadow = "0 0 15px rgba(0, 166, 251, 0.4)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.target.style.color = "#CECECE";
+                                    e.target.style.borderColor = "rgba(255,255,255,0.1)";
+                                    e.target.style.boxShadow = "none";
+                                }}
                             >
-                                {s.title}
+                                {social.icon}
                             </a>
                         ))}
                     </div>
 
-                    {/* Company */}
-                    <div>
-                        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "#8892A4", marginBottom: 16 }}>Company</p>
-                        {["Home", "About", "Work", "Contact"].map(l => (
-                            <a key={l} href={`#${l.toLowerCase()}`} style={{ display: "block", fontSize: 13, color: "#3D4A5C", textDecoration: "none", marginBottom: 10, transition: "color .2s" }}
-                                onMouseEnter={e => e.target.style.color = "#EEF2FF"}
-                                onMouseLeave={e => e.target.style.color = "#3D4A5C"}
-                            >
-                                {l}
-                            </a>
-                        ))}
-                    </div>
-
-                    {/* Contact */}
-                    <div>
-                        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "#8892A4", marginBottom: 16 }}>Contact</p>
-                        <p style={{ fontSize: 13, color: "#3D4A5C", marginBottom: 10 }}>contact@aaadigitalmedia.com</p>
-                        <p style={{ fontSize: 13, color: "#3D4A5C", marginBottom: 10 }}>+92 319 3949557</p>
-                        <p style={{ fontSize: 13, color: "#3D4A5C" }}>Karachi, Pakistan</p>
-                    </div>
-                </div>
-
-                <div className="divider" style={{ margin: "32px 0 24px" }} />
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
-                    <p style={{ fontSize: 12, color: "#1E2A3A" }}>© {new Date().getFullYear()} AAA Digital Media. All rights reserved.</p>
-                    <div style={{ display: "flex", gap: 24 }}>
-                        {["Privacy Policy", "Terms of Service"].map(l => (
-                            <a key={l} href="#" style={{ fontSize: 12, color: "#1E2A3A", textDecoration: "none" }}>{l}</a>
-                        ))}
-                    </div>
+                    <p style={{ marginTop: 96, fontSize: 13, color: "#94a3b8", fontFamily: "monospace" }}>
+                        © {new Date().getFullYear()} AAA Digital Media. All rights reserved.
+                    </p>
                 </div>
             </div>
 
-            <style>{`
-        @media (max-width: 768px) {
-          .footer-grid { grid-template-columns: 1fr 1fr !important; }
-        }
-        @media (max-width: 480px) {
-          .footer-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
+            {/* Background Glow - Royal Blue */}
+            <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: 600, height: 600, background: "rgba(0, 119, 182, 0.15)", filter: "blur(120px)", borderRadius: "50%", zIndex: -1 }}></div>
         </footer>
     );
 }
