@@ -6,41 +6,47 @@ import {
 } from "lucide-react";
 
 export const NAV = [
-    { label: "Home", href: "#home" },
-    { label: "Services", href: "#services" },
-    { label: "Work", href: "#work" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "/" },
+    { label: "Services", href: "/services" },
+    { label: "Work", href: "/portfolio" },
+    { label: "Clients", href: "/clients" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
 ];
 
 export const SERVICES = [
     {
         icon: <Camera size={22} className="text-blue-400" />,
         title: "Visual Content",
+        slug: "visual-content",
         desc: "Scroll-stopping reels, branded videos, motion graphics, and social content that converts viewers into customers.",
         tags: ["Reels & Short-form", "Brand Videos", "Motion Graphics", "Social Content"],
     },
     {
         icon: <TrendingUp size={22} className="text-blue-400" />,
         title: "Performance Marketing",
+        slug: "performance-marketing",
         desc: "Data-driven ad campaigns on Meta, Google, and TikTok engineered to maximise ROI and scale your revenue.",
         tags: ["Meta Ads", "Google Ads", "TikTok Ads", "Analytics & Reporting"],
     },
     {
         icon: <Globe size={22} className="text-blue-400" />,
         title: "Website Development",
+        slug: "website-development",
         desc: "High-converting Shopify stores and WordPress sites built for speed, SEO, and seamless user experience.",
         tags: ["Shopify", "WordPress", "Landing Pages", "SEO Optimised"],
     },
     {
         icon: <Smartphone size={22} className="text-blue-400" />,
         title: "Web App & Mobile App",
+        slug: "web-app-mobile-app",
         desc: "Custom web applications and cross-platform mobile apps that solve real problems and scale with your business.",
         tags: ["React / Next.js", "React Native", "UI/UX Design", "API Integration"],
     },
     {
         icon: <Code2 size={22} className="text-blue-400" />,
         title: "Photography",
+        slug: "photography",
         desc: "Professional product, brand, and lifestyle photography that elevates your visual identity across every channel.",
         tags: ["Product Photography", "Brand Shoots", "Lifestyle", "Post-production"],
     },

@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
-import { Menu, ArrowUpRight } from "lucide-react";
+import { Menu, ArrowUpRight, ChevronDown } from "lucide-react";
+import { NAV, SERVICES } from "@/lib/data";
 
 export default function Navbar() {
     const { scrollY } = useScroll();
@@ -49,23 +50,66 @@ export default function Navbar() {
 
                 {/* Desktop Links */}
                 <div className="hidden md:flex" style={{ gap: 32, alignItems: "center" }}>
-                    {["Work", "Services", "About", "Contact"].map((item) => (
-                        <Link
-                            key={item}
-                            href={`#${item.toLowerCase()}`}
-                            style={{ fontSize: 14, fontWeight: 500, color: "#CECECE", textDecoration: "none", transition: "color 0.2s" }}
-                            onMouseEnter={(e) => e.target.style.color = "#00A6FB"} /* Cyan Hover */
-                            onMouseLeave={(e) => e.target.style.color = "#CECECE"}
-                        >
-                            {item}
-                        </Link>
-                    ))}
+                    {NAV.filter(item => item.label !== 'Home').map((item) => {
+                        if (item.label === "Services") {
+                            return (
+                                <div key={item.label} className="group relative py-4">
+                                    <Link
+                                        href={item.href}
+                                        className="flex items-center gap-1 text-[14px] font-medium text-[#CECECE] transition-colors hover:text-[#00A6FB]"
+                                    >
+                                        {item.label}
+                                        <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
+                                    </Link>
+
+                                    {/* Dropdown Menu */}
+                                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 min-w-[360px] transform group-hover:translate-y-0 translate-y-2">
+                                        <div className="bg-[#00152b]/90 backdrop-blur-2xl border border-[rgba(0,166,251,0.2)] rounded-2xl p-3 shadow-[0_20px_60px_-15px_rgba(0,0,0,1)] overflow-hidden ring-1 ring-white/5">
+                                            <div className="flex flex-col gap-1">
+                                                {SERVICES.map((service) => (
+                                                    <Link
+                                                        key={service.slug}
+                                                        href={`/services/${service.slug}`}
+                                                        className="group/item flex items-center gap-4 p-4 rounded-xl hover:bg-white/[0.03] transition-all duration-200 border border-transparent hover:border-white/[0.05]"
+                                                    >
+                                                        <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-[#00A6FB] group-hover/item:scale-110 group-hover/item:bg-[#00A6FB] group-hover/item:text-white transition-all duration-300">
+                                                            {service.icon}
+                                                        </div>
+                                                        <div>
+                                                            <div className="text-[15px] font-semibold text-white group-hover/item:text-[#00A6FB] transition-colors">
+                                                                {service.title}
+                                                            </div>
+                                                            <div className="text-[12px] text-[#94a3b8] line-clamp-1 group-hover/item:text-[#CECECE]">
+                                                                Explore our {service.title.toLowerCase()} services
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        }
+
+                        return (
+                            <Link
+                                key={item.label}
+                                href={item.href}
+                                style={{ fontSize: 14, fontWeight: 500, color: "#CECECE", textDecoration: "none", transition: "color 0.2s" }}
+                                onMouseEnter={(e) => e.target.style.color = "#00A6FB"} /* Cyan Hover */
+                                onMouseLeave={(e) => e.target.style.color = "#CECECE"}
+                            >
+                                {item.label}
+                            </Link>
+                        );
+                    })}
                 </div>
 
                 {/* CTA */}
                 <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                     <Link
-                        href="#contact"
+                        href="/contact"
                         className="btn btn-primary hidden md:inline-flex"
                         style={{ fontSize: 13, gap: 8, padding: "10px 24px" }}
                     >

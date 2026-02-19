@@ -5,7 +5,7 @@ import { ArrowUpRight, Github, Linkedin, Mail, Twitter } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer id="contact" style={{ padding: "128px 0", borderTop: "1px solid rgba(0, 166, 251, 0.1)", position: "relative", overflow: "hidden" }}>
+        <footer id="footer-cta" style={{ padding: "128px 0", borderTop: "1px solid rgba(0, 166, 251, 0.1)", position: "relative", overflow: "hidden" }}>
             <div className="wrap" style={{ position: "relative", zIndex: 10 }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
                     <motion.span
