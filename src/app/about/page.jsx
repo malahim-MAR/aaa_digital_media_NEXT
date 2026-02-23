@@ -1,7 +1,11 @@
 import About from "@/components/sections/About";
 import Stats from "@/components/sections/Stats";
 import CTA from "@/components/sections/CTA";
-import Footer from "@/components/layout/Footer";
+
+export const metadata = {
+    title: "About Us | AAA Digital Media",
+    description: "Learn about AAA Digital Media, a full-service digital agency delivering world-class visuals, web dev, and performance marketing.",
+};
 
 export default function AboutPage() {
     return (
@@ -9,7 +13,6 @@ export default function AboutPage() {
             <About />
             <Stats />
             <CTA />
-            <Footer />
         </div>
     );
 }

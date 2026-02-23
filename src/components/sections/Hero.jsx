@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
+import Link from "next/link";
 
 export default function Hero() {
     const container = {
@@ -33,7 +34,7 @@ export default function Hero() {
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-sky-900/10 blur-[150px] rounded-full pointer-events-none" />
 
             {/* Badge -> Cyan & Deep Blue */}
-            <motion.div
+            <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
@@ -52,16 +53,16 @@ export default function Hero() {
                     <span style={{ position: "relative", display: "inline-flex", borderRadius: "50%", height: 8, width: 8, background: "#0077B6" }}></span>
                 </span>
                 Full-Service Digital Agency
-            </motion.div>
+            </m.div>
 
             {/* Main Title - Stacked reveal */}
-            <motion.h1
+            <m.h1
                 variants={container}
                 initial="hidden"
                 animate="show"
                 style={{
-                    fontFamily: "var(--font-jakarta, sans-serif)",
-                    fontSize: "clamp(3.5rem, 11vw, 8.5rem)",
+                    fontFamily: "var(--font-heading, sans-serif)",
+                    fontSize: "clamp(2.2rem, 10vw, 8.5rem)",
                     fontWeight: 800,
                     lineHeight: 0.9,
                     letterSpacing: "-0.04em",
@@ -71,13 +72,13 @@ export default function Hero() {
                 }}
             >
                 <div style={{ overflow: "hidden" }}>
-                    <motion.span variants={item} style={{ display: "block", color: "#FFFFFF", paddingBottom: 16 }}>
+                    <m.span variants={item} style={{ display: "block", color: "#FFFFFF", paddingBottom: 16 }}>
                         We Build Brands
-                    </motion.span>
+                    </m.span>
                 </div>
                 <div style={{ overflow: "hidden" }}>
                     {/* Gradient: White -> Silver -> Cyan Hint */}
-                    <motion.span variants={item} style={{
+                    <m.span variants={item} style={{
                         display: "block",
                         background: "linear-gradient(to bottom, #FFFFFF, #B0E0FF)",
                         WebkitBackgroundClip: "text",
@@ -85,11 +86,11 @@ export default function Hero() {
                         paddingBottom: 16
                     }}>
                         That Win Globally.
-                    </motion.span>
+                    </m.span>
                 </div>
-            </motion.h1>
+            </m.h1>
 
-            <motion.p
+            <m.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.8 }}
@@ -103,18 +104,21 @@ export default function Hero() {
                 }}
             >
                 From strategy to execution — we handle every digital touchpoint so you can focus on scaling your business.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
-                style={{ marginTop: 48 }}
+                style={{ marginTop: 48, display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}
             >
                 <a href="#work" className="btn btn-primary" style={{ fontSize: 16, padding: "16px 36px" }}>
                     Explore Our Work
                 </a>
-            </motion.div>
+                <Link href="/contact" className="btn btn-outline" style={{ fontSize: 16, padding: "16px 36px" }}>
+                    Get a Free Quote
+                </Link>
+            </m.div>
 
         </section>
     );

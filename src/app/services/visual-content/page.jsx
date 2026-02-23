@@ -1,6 +1,5 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 import CTA from "@/components/sections/CTA";
-import Footer from "@/components/layout/Footer";
 import { Camera } from "lucide-react";
 
 export const metadata = {
@@ -26,7 +25,6 @@ export default function VisualContentPage() {
                 accentColor="#00A6FB"
             />
             <CTA />
-            <Footer />
         </>
     );
 }

@@ -1,20 +1,16 @@
 "use client";
+
+import { m, useSpring, useMotionValue } from "framer-motion";
 import { useEffect } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function BackgroundEffects() {
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
+    const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
+    const mouseY = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
 
-    // Physics
-    const glow1X = useSpring(mouseX, { damping: 45, stiffness: 60, mass: 1 });
-    const glow1Y = useSpring(mouseY, { damping: 45, stiffness: 60, mass: 1 });
-
-    const glow2X = useSpring(mouseX, { damping: 55, stiffness: 40, mass: 2 });
-    const glow2Y = useSpring(mouseY, { damping: 55, stiffness: 40, mass: 2 });
-
-    const glow3X = useSpring(mouseX, { damping: 70, stiffness: 25, mass: 3 });
-    const glow3Y = useSpring(mouseY, { damping: 70, stiffness: 25, mass: 3 });
+    // Smooth out the movement
+    const springConfig = { damping: 40, stiffness: 200, mass: 0.5 };
+    const smoothX = useSpring(mouseX, springConfig);
+    const smoothY = useSpring(mouseY, springConfig);
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -24,50 +20,35 @@ export default function BackgroundEffects() {
 
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, []);
+    }, [mouseX]);
 
     return (
-        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-
-            {/* 
-        NEW PALETTE LAYERS:
-        1. Electric Cyan (#00A6FB) - Bright Core
-        2. Royal Blue (#0077B6) - Secondary Flow
-        3. Deep Navy (#00152b) - Ambient Base 
-      */}
-
-            {/* Primary Glow - Electric Cyan (0.1 opacity -> subtle) */}
-            <motion.div
-                className="absolute w-[500px] h-[500px] blur-[120px] rounded-full -left-[250px] -top-[250px]"
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+            {/* Dynamic Glow Orb 1 */}
+            <m.div
                 style={{
-                    x: glow1X, y: glow1Y,
-                    background: "rgba(0, 166, 251, 0.08)"
+                    x: smoothX,
+                    y: smoothY,
+                    translateX: "-50%",
+                    translateY: "-50%",
                 }}
+                className="absolute w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full"
             />
 
-            {/* Secondary Glow - Royal Blue */}
-            <motion.div
-                className="absolute w-[800px] h-[800px] blur-[150px] rounded-full -left-[400px] -top-[400px]"
+            {/* Dynamic Glow Orb 2 */}
+            <m.div
                 style={{
-                    x: glow2X, y: glow2Y,
-                    background: "rgba(0, 119, 182, 0.08)"
+                    x: smoothX,
+                    y: smoothY,
+                    translateX: "-20%",
+                    translateY: "-30%",
                 }}
+                className="absolute w-[400px] h-[400px] bg-cyan-400/5 blur-[100px] rounded-full"
             />
 
-            {/* Deep Ambient Aura - Deep Navy Overlay */}
-            <motion.div
-                className="absolute w-[1200px] h-[1200px] blur-[200px] rounded-full -left-[600px] -top-[600px]"
-                style={{
-                    x: glow3X, y: glow3Y,
-                    background: "rgba(0, 21, 43, 0.6)"
-                }}
-            />
-
-            {/* Static Ambient Gradients - Corner Highlights */}
-            {/* Top Right: Darker Navy */}
-            <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-[#000e1c] blur-[150px] rounded-full opacity-60" />
-            {/* Bottom Left: Deep Blue hint */}
-            <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-[#002147] blur-[150px] rounded-full opacity-30" />
+            {/* Static Glows */}
+            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-900/10 blur-[120px] rounded-full" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-900/10 blur-[120px] rounded-full" />
         </div>
     );
 }

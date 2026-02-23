@@ -1,6 +1,5 @@
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 import CTA from "@/components/sections/CTA";
-import Footer from "@/components/layout/Footer";
 import { Smartphone } from "lucide-react";
 
 export const metadata = {
@@ -26,7 +25,6 @@ export default function WebAppMobileAppPage() {
                 accentColor="#3B82F6"
             />
             <CTA />
-            <Footer />
         </>
     );
 }

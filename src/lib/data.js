@@ -23,13 +23,6 @@ export const SERVICES = [
         tags: ["Reels & Short-form", "Brand Videos", "Motion Graphics", "Social Content"],
     },
     {
-        icon: <TrendingUp size={22} className="text-blue-400" />,
-        title: "Performance Marketing",
-        slug: "performance-marketing",
-        desc: "Data-driven ad campaigns on Meta, Google, and TikTok engineered to maximise ROI and scale your revenue.",
-        tags: ["Meta Ads", "Google Ads", "TikTok Ads", "Analytics & Reporting"],
-    },
-    {
         icon: <Globe size={22} className="text-blue-400" />,
         title: "Website Development",
         slug: "website-development",
@@ -44,7 +37,14 @@ export const SERVICES = [
         tags: ["React / Next.js", "React Native", "UI/UX Design", "API Integration"],
     },
     {
-        icon: <Code2 size={22} className="text-blue-400" />,
+        icon: <TrendingUp size={22} className="text-blue-400" />,
+        title: "Performance Marketing",
+        slug: "performance-marketing",
+        desc: "Data-driven ad campaigns on Meta, Google, and TikTok engineered to maximise ROI and scale your revenue.",
+        tags: ["Meta Ads", "Google Ads", "TikTok Ads", "Analytics & Reporting"],
+    },
+    {
+        icon: <Camera size={22} className="text-blue-400" />,
         title: "Photography",
         slug: "photography",
         desc: "Professional product, brand, and lifestyle photography that elevates your visual identity across every channel.",

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { SERVICES } from "@/lib/data";
 
@@ -9,7 +9,7 @@ export default function Services() {
         <section id="services" className="section" style={{ background: "transparent" }}>
             <div className="wrap">
                 <div style={{ marginBottom: 96 }}>
-                    <motion.span
+                    <m.span
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -19,8 +19,8 @@ export default function Services() {
                         }}
                     >
                         Capabilities
-                    </motion.span>
-                    <motion.h2
+                    </m.span>
+                    <m.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -33,15 +33,13 @@ export default function Services() {
                     >
                         Digital <br />
                         <span style={{ color: "#0077B6" }}>Capabilities</span> {/* Royal Blue */}
-                    </motion.h2>
+                    </m.h2>
                 </div>
 
-                <div style={{
-                    display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))", gap: 24,
-                }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
                     {SERVICES.map((s, i) => (
                         <Link key={i} href={`/services/${s.slug}`} style={{ display: "block", textDecoration: "none" }}>
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0, y: 40 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -49,7 +47,7 @@ export default function Services() {
                                 style={{
                                     padding: 32, borderRadius: 24,
                                     background: "rgba(10, 20, 40, 0.5)", /* Deep Blue Glass Fill */
-                                    border: "1px solid rgba(0, 166, 251, 0.1)", /* Cyan Tint Border */
+                                    border: "1px solid rgba(0, 166, 251, 0.15)", /* Cyan Tint Border */
                                     boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
                                     transition: "all 0.3s",
                                     height: "100%", /* Ensure full height in grid */
@@ -70,7 +68,7 @@ export default function Services() {
                                     {s.icon}
                                 </div>
                                 <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 16, color: "#FFFFFF" }}>{s.title}</h3>
-                                <p style={{ fontSize: 14, color: "#CECECE", lineHeight: 1.6, marginBottom: 24 }}> /* Silver Desc */
+                                <p style={{ fontSize: 14, color: "#CECECE", lineHeight: 1.6, marginBottom: 24 }}>
                                     {s.desc}
                                 </p>
                                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -85,7 +83,7 @@ export default function Services() {
                                         </span>
                                     ))}
                                 </div>
-                            </motion.div>
+                            </m.div>
                         </Link>
                     ))}
                 </div>

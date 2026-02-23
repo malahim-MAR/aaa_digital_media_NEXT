@@ -1,14 +1,15 @@
 "use client";
 import { useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { m, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Menu, ArrowUpRight, ChevronDown } from "lucide-react";
+import { Menu, X, ArrowUpRight, ChevronDown } from "lucide-react";
 import { NAV, SERVICES } from "@/lib/data";
 
 export default function Navbar() {
     const { scrollY } = useScroll();
     const [hidden, setHidden] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         const previous = scrollY.getPrevious() || 0;
@@ -20,7 +21,7 @@ export default function Navbar() {
     });
 
     return (
-        <motion.header
+        <m.header
             variants={{ visible: { y: 0 }, hidden: { y: -100 } }}
             animate={hidden ? "hidden" : "visible"}
             transition={{ duration: 0.35, ease: "easeInOut" }}
@@ -56,7 +57,7 @@ export default function Navbar() {
                                 <div key={item.label} className="group relative py-4">
                                     <Link
                                         href={item.href}
-                                        className="flex items-center gap-1 text-[14px] font-medium text-[#CECECE] transition-colors hover:text-[#00A6FB]"
+                                        className="flex items-center gap-1 text-[14px] font-medium text-[#CECECE] transition-colors hover:text-[#00A6FB] flex items-center"
                                     >
                                         {item.label}
                                         <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
@@ -64,7 +65,7 @@ export default function Navbar() {
 
                                     {/* Dropdown Menu */}
                                     <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 min-w-[360px] transform group-hover:translate-y-0 translate-y-2">
-                                        <div className="bg-[#00152b]/90 backdrop-blur-2xl border border-[rgba(0,166,251,0.2)] rounded-2xl p-3 shadow-[0_20px_60px_-15px_rgba(0,0,0,1)] overflow-hidden ring-1 ring-white/5">
+                                        <div className="bg-[#00152b]/95 backdrop-blur-2xl border border-[rgba(0,166,251,0.2)] rounded-2xl p-3 shadow-[0_20px_60px_-15px_rgba(0,0,0,1)] overflow-hidden ring-1 ring-white/5">
                                             <div className="flex flex-col gap-1">
                                                 {SERVICES.map((service) => (
                                                     <Link
@@ -116,12 +117,52 @@ export default function Navbar() {
                         Let&apos;s Talk <ArrowUpRight size={16} />
                     </Link>
 
-                    {/* Mobile Menu Button - Visual Only */}
-                    <button className="md:hidden" style={{ color: "#fff", background: "transparent", border: "none" }}>
-                        <Menu size={24} />
+                    {/* Mobile Menu Button */}
+                    <button className="md:hidden flex items-center justify-center"
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                        style={{ color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}>
+                        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
             </nav>
-        </motion.header>
+
+            {/* Mobile Drawer */}
+            <AnimatePresence>
+                {mobileOpen && (
+                    <m.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        style={{
+                            position: "fixed", top: scrolled ? 76 : 92, left: 16, right: 16,
+                            background: "rgba(0, 21, 43, 0.97)",
+                            backdropFilter: "blur(20px)",
+                            border: "1px solid rgba(0, 166, 251, 0.15)",
+                            borderRadius: 20, padding: 24, zIndex: 49,
+                            display: "flex", flexDirection: "column", gap: 4,
+                            boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
+                        }}
+                    >
+                        {NAV.map((item) => (
+                            <Link key={item.label} href={item.href}
+                                onClick={() => setMobileOpen(false)}
+                                style={{
+                                    padding: "14px 16px", fontSize: 16, fontWeight: 600,
+                                    color: "#CECECE", textDecoration: "none", borderRadius: 12,
+                                    borderBottom: "1px solid rgba(255,255,255,0.05)"
+                                }}
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
+                        <Link href="/contact" className="btn btn-primary"
+                            onClick={() => setMobileOpen(false)}
+                            style={{ marginTop: 8, justifyContent: "center", display: "flex", alignItems: "center", gap: 8 }}>
+                            Let's Talk <ArrowUpRight size={16} />
+                        </Link>
+                    </m.div>
+                )}
+            </AnimatePresence>
+        </m.header>
     );
 }

@@ -1,17 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { WORK } from "@/lib/data";
 
 export default function Work() {
     return (
         <section id="work" className="section">
-            <div className="wrap">
+            <div className="wrap border-t border-white/5 pt-24">
                 {/* Header */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 32, marginBottom: 96 }} className="md:flex-row md:items-end md:justify-between">
                     <div>
-                        <motion.span
+                        <m.span
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -21,8 +22,8 @@ export default function Work() {
                             }}
                         >
                             Selected Works
-                        </motion.span>
-                        <motion.h2
+                        </m.span>
+                        <m.h2
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -35,34 +36,31 @@ export default function Work() {
                         >
                             Featured <br />
                             <span style={{ color: "#0077B6" }}>Case Studies</span> {/* Royal Blue Accent */}
-                        </motion.h2>
+                        </m.h2>
                     </div>
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <a href="#contact" className="btn btn-outline" style={{ padding: "12px 32px", fontSize: 14 }}>
+                        <Link href="/portfolio" className="btn btn-outline" style={{ padding: "12px 32px", fontSize: 14 }}>
                             View All Work
-                        </a>
-                    </motion.div>
+                        </Link>
+                    </m.div>
                 </div>
 
                 {/* Projects Grid */}
-                <div style={{ display: "grid", gap: 128 }}>
+                <div style={{ display: "grid", gap: 80 }}>
                     {WORK.map((project, index) => (
-                        <motion.div
+                        <m.div
                             key={index}
                             initial={{ opacity: 0, y: 60 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.8 }}
-                            className="project-row"
-                            style={{
-                                display: "grid", gridTemplateColumns: "1fr", gap: 48, alignItems: "center",
-                            }}
+                            className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
                         >
-                            <div style={{ order: index % 2 !== 0 ? 2 : 1 }} className="project-info">
+                            <div className={index % 2 !== 0 ? "lg:order-2" : "lg:order-1"}>
                                 <span style={{ fontSize: 13, fontWeight: 600, color: "#94a3b8", marginBottom: 16, display: "block" }}>
                                     0{index + 1} / {project.industry}
                                 </span>
@@ -81,15 +79,14 @@ export default function Work() {
                                 {/* Electric Cyan Accent Line */}
                                 <div style={{ width: 64, height: 2, background: "#00A6FB", marginBottom: 40, boxShadow: "0 0 10px #00A6FB" }} />
 
-                                <a href="#" style={{
+                                <Link href="#" style={{
                                     display: "inline-flex", alignItems: "center", gap: 8, fontSize: 16, fontWeight: 700,
                                     color: "#00A6FB", textDecoration: "none", transition: "all 0.3s"
                                 }}
-                                    onMouseEnter={(e) => { e.target.style.color = "#FFD700"; }} /* Gold Hover */
-                                    onMouseLeave={(e) => { e.target.style.color = "#00A6FB"; }}
+                                    className="hover:text-[#FFD700]"
                                 >
                                     View Case Study <ArrowUpRight size={18} />
-                                </a>
+                                </Link>
                             </div>
 
                             {/* Project Image Placeholder */}
@@ -98,24 +95,16 @@ export default function Work() {
                                     position: "relative", aspectRatio: "16/10", borderRadius: 24, overflow: "hidden",
                                     /* Deep Navy based gradient */
                                     background: `linear-gradient(135deg, ${project.color || "#002147"}, #000e1c)`,
-                                    order: index % 2 !== 0 ? 1 : 2, cursor: "pointer",
-                                    border: "1px solid rgba(0, 166, 251, 0.1)",
+                                    border: "1px solid rgba(0, 166, 251, 0.15)",
                                 }}
-                                className="project-image"
+                                className={index % 2 !== 0 ? "lg:order-1 cursor-pointer" : "lg:order-2 cursor-pointer"}
                             >
                                 <div style={{ position: "absolute", inset: 0, background: "rgba(0, 21, 43, 0.4)", transition: "background 0.3s" }} />
                             </div>
-                        </motion.div>
+                        </m.div>
                     ))}
                 </div>
             </div>
-
-            <style>{`
-        @media (min-width: 1024px) {
-          .project-row { grid-template-columns: 1fr 1fr !important; gap: 80px !important; }
-          .project-info { order: inherit !important; } 
-        }
-      `}</style>
         </section>
     );
 }

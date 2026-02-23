@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, Check, ChevronRight } from "lucide-react";
 
@@ -56,10 +56,10 @@ export default function ServicePageTemplate({
 
                 {/* Content — uses site wrap */}
                 <div className="wrap" style={{ position: "relative", zIndex: 1 }}>
-                    <motion.div variants={stagger} initial="hidden" animate="visible">
+                    <m.div variants={stagger} initial="hidden" animate="visible">
 
                         {/* Breadcrumb pill */}
-                        <motion.div variants={item} style={{ marginBottom: 40 }}>
+                        <m.div variants={item} style={{ marginBottom: 40 }}>
                             <Link href="/services" style={{
                                 display: "inline-flex", alignItems: "center", gap: 8,
                                 padding: "8px 18px", borderRadius: 100,
@@ -76,10 +76,10 @@ export default function ServicePageTemplate({
                                 Our Services
                                 <ChevronRight size={12} />
                             </Link>
-                        </motion.div>
+                        </m.div>
 
                         {/* Icon badge */}
-                        <motion.div variants={item} style={{
+                        <m.div variants={item} style={{
                             width: 72, height: 72, borderRadius: 20, marginBottom: 36,
                             display: "flex", alignItems: "center", justifyContent: "center",
                             background: `${accentColor}18`,
@@ -87,10 +87,10 @@ export default function ServicePageTemplate({
                             color: accentColor,
                         }}>
                             <span style={{ transform: "scale(1.4)" }}>{icon}</span>
-                        </motion.div>
+                        </m.div>
 
                         {/* Heading */}
-                        <motion.h1 variants={item} style={{
+                        <m.h1 variants={item} style={{
                             fontSize: "clamp(3rem, 9vw, 7rem)",
                             fontWeight: 900,
                             lineHeight: 0.95,
@@ -112,18 +112,18 @@ export default function ServicePageTemplate({
                                     </span>
                                 </>
                             )}
-                        </motion.h1>
+                        </m.h1>
 
                         {/* Description */}
-                        <motion.p variants={item} style={{
+                        <m.p variants={item} style={{
                             fontSize: 18, color: "var(--text-secondary)",
                             maxWidth: 680, lineHeight: 1.7, marginBottom: 48,
                         }}>
                             {desc}
-                        </motion.p>
+                        </m.p>
 
                         {/* CTA buttons */}
-                        <motion.div variants={item} style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
+                        <m.div variants={item} style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
                             <Link href="/contact" className="btn btn-primary" style={{ gap: 12, padding: "16px 32px", fontSize: 15 }}>
                                 Start a Project <ArrowUpRight size={16} />
                             </Link>
@@ -137,15 +137,15 @@ export default function ServicePageTemplate({
                             }}>
                                 See What We Do <ChevronRight size={15} style={{ color: accentColor }} />
                             </Link>
-                        </motion.div>
+                        </m.div>
 
-                    </motion.div>
+                    </m.div>
                 </div>
             </section>
 
             {/* ── DETAILS ──────────────────────────────────────────── */}
             <section id="details" className="section" style={{ background: "transparent" }}>
-                <div className="wrap">
+                <div className="wrap border-t border-white/5 pt-24">
                     <div style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))",
@@ -154,7 +154,7 @@ export default function ServicePageTemplate({
                     }}>
 
                         {/* Left — Why us */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: -40 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -184,7 +184,7 @@ export default function ServicePageTemplate({
 
                             <ul style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                                 {benefits.map((b, i) => (
-                                    <motion.li key={i}
+                                    <m.li key={i}
                                         initial={{ opacity: 0, x: -20 }}
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
@@ -212,13 +212,13 @@ export default function ServicePageTemplate({
                                             <Check size={17} strokeWidth={3} />
                                         </div>
                                         <span style={{ fontSize: 15, fontWeight: 600, color: "var(--text-secondary)" }}>{b}</span>
-                                    </motion.li>
+                                    </m.li>
                                 ))}
                             </ul>
-                        </motion.div>
+                        </m.div>
 
                         {/* Right — Glass card */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -288,7 +288,7 @@ export default function ServicePageTemplate({
                                     </Link>
                                 </div>
                             </div>
-                        </motion.div>
+                        </m.div>
 
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
     const [isVisible, setIsVisible] = useState(false);
@@ -36,7 +36,7 @@ export default function CustomCursor() {
     return (
         <>
             {/* 1. Main Dot */}
-            <motion.div
+            <m.div
                 className="fixed top-0 left-0 w-[8px] h-[8px] bg-white rounded-full pointer-events-none z-[9999] mix-blend-exclusion"
                 style={{
                     x: dotX,
@@ -48,7 +48,7 @@ export default function CustomCursor() {
             />
 
             {/* 2. Trailing Ring */}
-            <motion.div
+            <m.div
                 className="fixed top-0 left-0 w-[40px] h-[40px] border border-white/40 rounded-full pointer-events-none z-[9998] mix-blend-exclusion"
                 style={{
                     x: ringX,

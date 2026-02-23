@@ -4,6 +4,9 @@ import SmoothScroll from "@/components/ui/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
 import BackgroundEffects from "@/components/ui/BackgroundEffects";
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import FloatingCTA from "@/components/ui/FloatingCTA";
+import { LazyMotion, domMax } from "framer-motion";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -26,22 +29,26 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${jakarta.variable} ${inter.variable}`}>
       <body className="antialiased bg-black text-white selection:bg-slate-700/30 selection:text-white">
-        <SmoothScroll>
-          {/* Grain Overlay */}
-          <div className="grain-overlay" />
+        <LazyMotion features={domMax}>
+          <SmoothScroll>
+            {/* Grain Overlay */}
+            <div className="grain-overlay" />
 
-          {/* Background Interactive Effects */}
-          <BackgroundEffects />
+            {/* Background Interactive Effects */}
+            <BackgroundEffects />
 
-          {/* Cursor */}
-          <CustomCursor />
+            {/* Cursor */}
+            <CustomCursor />
 
-          <Navbar />
+            <Navbar />
 
-          <main className="relative z-10 min-h-screen">
-            {children}
-          </main>
-        </SmoothScroll>
+            <main className="relative z-10 min-h-screen">
+              {children}
+            </main>
+            <Footer />
+            <FloatingCTA />
+          </SmoothScroll>
+        </LazyMotion>
       </body>
     </html>
   );

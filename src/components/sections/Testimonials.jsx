@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Quote } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/data";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -28,7 +28,7 @@ export default function Testimonials() {
                 <ScrollReveal style={{ marginBottom: 72 }}>
                     <p style={{
                         fontSize: 11, fontWeight: 600, letterSpacing: "0.22em",
-                        textTransform: "uppercase", color: "#3D5070", marginBottom: 20,
+                        textTransform: "uppercase", color: "#64748b", marginBottom: 20,
                     }}>
                         Testimonials
                     </p>
@@ -38,11 +38,11 @@ export default function Testimonials() {
                 </ScrollReveal>
 
                 {/* Split layout — editorial left + stacked right */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "start" }} className="testimonials-grid">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
                     {/* Left — large quote */}
                     <ScrollReveal>
                         <AnimatePresence mode="wait" custom={dir}>
-                            <motion.div key={cur} custom={dir} variants={variants} initial="enter" animate="center" exit="exit">
+                            <m.div key={cur} custom={dir} variants={variants} initial="enter" animate="center" exit="exit">
                                 <Quote size={48} color="rgba(37,99,235,0.12)" fill="rgba(37,99,235,0.12)" style={{ marginBottom: 32 }} />
                                 <blockquote style={{
                                     fontSize: "clamp(1.2rem, 2.2vw, 1.45rem)",
@@ -51,7 +51,7 @@ export default function Testimonials() {
                                     color: "rgba(240,244,255,0.82)",
                                     letterSpacing: "-0.015em",
                                     marginBottom: 40,
-                                    fontFamily: "var(--font-syne, Syne, sans-serif)",
+                                    fontFamily: "var(--font-heading)",
                                 }}>
                                     &ldquo;{TESTIMONIALS[cur].quote}&rdquo;
                                 </blockquote>
@@ -61,18 +61,18 @@ export default function Testimonials() {
                                         background: "linear-gradient(135deg, #2563EB, #00C2FF)",
                                         display: "flex", alignItems: "center", justifyContent: "center",
                                         fontWeight: 800, fontSize: 17, color: "#fff", flexShrink: 0,
-                                        fontFamily: "var(--font-syne, Syne, sans-serif)",
+                                        fontFamily: "var(--font-heading)",
                                     }}>
                                         {TESTIMONIALS[cur].name[0]}
                                     </div>
                                     <div>
-                                        <p style={{ fontWeight: 700, fontSize: 15, fontFamily: "var(--font-syne, Syne, sans-serif)", letterSpacing: "-0.02em" }}>
+                                        <p style={{ fontWeight: 700, fontSize: 15, fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}>
                                             {TESTIMONIALS[cur].name}
                                         </p>
-                                        <p style={{ fontSize: 13, color: "#4A5568", marginTop: 2 }}>{TESTIMONIALS[cur].role}</p>
+                                        <p style={{ fontSize: 13, color: "#94a3b8", marginTop: 2 }}>{TESTIMONIALS[cur].role}</p>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         </AnimatePresence>
 
                         {/* Dots */}
@@ -105,10 +105,10 @@ export default function Testimonials() {
                                     onMouseEnter={e => { if (i !== cur) e.currentTarget.style.background = "#0F1520"; }}
                                     onMouseLeave={e => { if (i !== cur) e.currentTarget.style.background = "#0D1117"; }}
                                 >
-                                    <p style={{ fontSize: 13, color: i === cur ? "#B0BCCC" : "#3D5070", lineHeight: 1.6, marginBottom: 12 }}>
+                                    <p style={{ fontSize: 13, color: i === cur ? "#B0BCCC" : "#64748b", lineHeight: 1.6, marginBottom: 12 }}>
                                         &ldquo;{t.quote.substring(0, 80)}...&rdquo;
                                     </p>
-                                    <p style={{ fontSize: 12, fontWeight: 700, color: i === cur ? "#F0F4FF" : "#4A5568", fontFamily: "var(--font-syne, Syne, sans-serif)" }}>
+                                    <p style={{ fontSize: 12, fontWeight: 700, color: i === cur ? "#F0F4FF" : "#94a3b8", fontFamily: "var(--font-heading)" }}>
                                         {t.name}
                                     </p>
                                 </div>
@@ -117,12 +117,6 @@ export default function Testimonials() {
                     </ScrollReveal>
                 </div>
             </div>
-
-            <style>{`
-        @media (max-width: 768px) {
-          .testimonials-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
-        }
-      `}</style>
         </section>
     );
 }

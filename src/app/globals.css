@@ -100,7 +100,8 @@ p {
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-cyan {
+.text-gradient-cyan,
+.g-text {
   background: linear-gradient(135deg, #00A6FB 0%, #0077B6 100%);
   -webkit-background-clip: text;
   background-clip: text;
