@@ -28,20 +28,23 @@ export default function About() {
                             <h2 style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)", fontWeight: 800, lineHeight: 0.9, letterSpacing: "-0.04em", color: "#FFFFFF" }}>
                                 Built <br className="hidden lg:block" /> <span style={{ color: "#0077B6" }}>Different.</span>
                             </h2>
+                            <p style={{ fontSize: "16px", marginTop: '20px', fontWeight: 300, lineHeight: 1.5, color: "#CECECE" }}>
+                                AAA Digital Media is a <strong style={{ fontWeight: 600, color: "#00A6FB" }}>full-service partner</strong> for ambitious brands. We combine international-level quality with the dedication of a boutique studio to deliver <span style={{ fontStyle: "italic", color: "#D4AF37" /* Gold */ }}>real, measurable growth</span>.
+                            </p>
                             {/* Cyan Gradient Line */}
                             <div style={{ height: 2, background: "linear-gradient(90deg, #00A6FB, transparent)", marginTop: 32, width: 120 }}></div>
                         </m.div>
                     </div>
 
                     {/* Content */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: 128 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 50, marginTop: '32px' }}>
 
                         {/* Story */}
                         <div>
                             <span style={{ display: "block", fontSize: 13, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#0077B6", marginBottom: 32 }}>
                                 01 / Mission
                             </span>
-                            <p style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", fontWeight: 300, lineHeight: 1.4, color: "#CECECE" }}>
+                            <p style={{ fontSize: "18px", fontWeight: 300, lineHeight: 1.4, color: "#CECECE" }}>
                                 AAA Digital Media is a <strong style={{ fontWeight: 600, color: "#00A6FB" }}>full-service partner</strong> for ambitious brands. We combine international-level quality with the dedication of a boutique studio to deliver <span style={{ fontStyle: "italic", color: "#D4AF37" /* Gold */ }}>real, measurable growth</span>.
                             </p>
                         </div>

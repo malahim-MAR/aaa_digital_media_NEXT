@@ -4,65 +4,112 @@ import { m, useInView } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { STATS } from "@/lib/data";
 
-const Counter = ({ value, duration = 2000 }) => {
+/* ── Animated counter ─────────────────────────────────── */
+function Counter({ value, duration = 2200 }) {
     const [count, setCount] = useState(0);
-    const countRef = useRef(null);
-    const inView = useInView(countRef, { once: true });
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true });
 
-    // Parse numeric value and suffix (e.g., "200+" -> { num: 200, suffix: "+" })
     const num = parseInt(value);
-    const suffix = value.replace(/[0-9]/g, '');
+    const suffix = value.replace(/[0-9]/g, "");
 
     useEffect(() => {
-        if (inView) {
-            let start = 0;
-            const end = num;
-            const totalSteps = 60;
-            const increment = end / totalSteps;
-            const stepTime = duration / totalSteps;
-
-            const timer = setInterval(() => {
-                start += increment;
-                if (start >= end) {
-                    setCount(end);
-                    clearInterval(timer);
-                } else {
-                    setCount(Math.floor(start));
-                }
-            }, stepTime);
-
-            return () => clearInterval(timer);
-        }
+        if (!inView) return;
+        let start = 0;
+        const steps = 80;
+        const inc = num / steps;
+        const ms = duration / steps;
+        const t = setInterval(() => {
+            start += inc;
+            if (start >= num) { setCount(num); clearInterval(t); }
+            else setCount(Math.floor(start));
+        }, ms);
+        return () => clearInterval(t);
     }, [inView, num, duration]);
 
-    return (
-        <span ref={countRef}>
-            {count}{suffix}
-        </span>
-    );
-};
+    return <span ref={ref}>{count}{suffix}</span>;
+}
 
+/* ── Stats ─────────────────────────────────────────── */
 export default function Stats() {
     return (
-        <section className="bg-[#020617]/50 border-y border-white/5">
-            <div className="wrap py-12 lg:py-20">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0">
+        <section style={{
+            position: "relative",
+            borderTop: "1px solid rgba(255,255,255,0.06)",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            overflow: "hidden",
+        }}>
+            {/* Frosted glass bg */}
+            <div style={{
+                position: "absolute", inset: 0,
+                background: "rgba(0,21,43,0.6)",
+                backdropFilter: "blur(12px)",
+                pointerEvents: "none",
+            }} />
+            {/* Subtle cyan radial glow */}
+            <div style={{
+                position: "absolute", top: "50%", left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 800, height: 300,
+                background: "radial-gradient(ellipse, rgba(0,166,251,0.07) 0%, transparent 70%)",
+                pointerEvents: "none",
+            }} />
+
+            <div className="wrap" style={{ position: "relative", padding: "56px 32px" }}>
+                {/* Single horizontal row — always 4 columns */}
+                <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(4, 1fr)",
+                }}>
                     {STATS.map((stat, i) => (
                         <m.div
                             key={i}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="text-center lg:border-r last:border-0 border-white/10"
+                            transition={{ delay: i * 0.12, duration: 0.7 }}
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                textAlign: "center",
+                                padding: "0 16px",
+                                /* Divider between cells — not after the last one */
+                                borderRight: i < STATS.length - 1
+                                    ? "1px solid rgba(255,255,255,0.07)"
+                                    : "none",
+                            }}
                         >
-                            <div
-                                className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 tracking-tighter text-white"
-                                style={{ fontFamily: "var(--font-heading)" }}
-                            >
+                            {/* Big glowing number */}
+                            <div style={{
+                                fontFamily: "var(--font-heading)",
+                                fontSize: "clamp(2.8rem, 6vw, 5rem)",
+                                fontWeight: 900,
+                                lineHeight: 1,
+                                letterSpacing: "-0.04em",
+                                color: "#FFFFFF",
+                                marginBottom: 10,
+                                filter: "drop-shadow(0 0 20px rgba(0,166,251,0.3))",
+                            }}>
                                 <Counter value={stat.value} />
                             </div>
-                            <div className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-[#94a3b8]">
+
+                            {/* Cyan accent underline */}
+                            <div style={{
+                                width: 28, height: 2,
+                                background: "linear-gradient(90deg, transparent, #00A6FB, transparent)",
+                                marginBottom: 10,
+                                borderRadius: 2,
+                            }} />
+
+                            {/* Label */}
+                            <div style={{
+                                fontSize: 11,
+                                fontWeight: 700,
+                                letterSpacing: "0.22em",
+                                textTransform: "uppercase",
+                                color: "#64748b",
+                            }}>
                                 {stat.label}
                             </div>
                         </m.div>

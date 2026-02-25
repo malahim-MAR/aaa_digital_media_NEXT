@@ -1,61 +1,84 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { m, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
+    const [mounted, setMounted] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+
+    // Always 0 on server — useEffect sets real values client-side
     const mouseX = useMotionValue(-100);
     const mouseY = useMotionValue(-100);
 
-    // 1. Center Dot Physics (Tight, fast)
-    const dotSpring = { damping: 25, stiffness: 700 };
-    const dotX = useSpring(mouseX, dotSpring);
-    const dotY = useSpring(mouseY, dotSpring);
+    // Center Dot — tight & fast
+    const dotX = useSpring(mouseX, { damping: 25, stiffness: 700 });
+    const dotY = useSpring(mouseY, { damping: 25, stiffness: 700 });
 
-    // 2. Trailing Ring Physics (Loose, slower) -> CREATES THE TRAIL EFFECT
-    const ringSpring = { damping: 15, stiffness: 150, mass: 1.1 };
-    const ringX = useSpring(mouseX, ringSpring);
-    const ringY = useSpring(mouseY, ringSpring);
+    // Trailing Ring — loose & slow
+    const ringX = useSpring(mouseX, { damping: 15, stiffness: 150, mass: 1.1 });
+    const ringY = useSpring(mouseY, { damping: 15, stiffness: 150, mass: 1.1 });
 
     useEffect(() => {
+        // Skip on touch/mobile devices
+        if (window.matchMedia("(pointer: coarse)").matches) return;
+
+        setMounted(true);
+
         const moveCursor = (e) => {
             mouseX.set(e.clientX);
             mouseY.set(e.clientY);
-            if (!isVisible) setIsVisible(true);
+            setIsVisible(true);
         };
 
         window.addEventListener("mousemove", moveCursor);
-        return () => {
-            window.removeEventListener("mousemove", moveCursor);
-        };
-    }, [mouseX, mouseY, isVisible]);
+        return () => window.removeEventListener("mousemove", moveCursor);
+    }, [mouseX, mouseY]);
 
-    // Hide on mobile/touch devices
-    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return null;
+    // Don't render on server or touch devices
+    if (!mounted) return null;
 
     return (
         <>
-            {/* 1. Main Dot */}
+            {/* Main Dot */}
             <m.div
-                className="fixed top-0 left-0 w-[8px] h-[8px] bg-white rounded-full pointer-events-none z-[9999] mix-blend-exclusion"
                 style={{
                     x: dotX,
                     y: dotY,
                     translateX: "-50%",
                     translateY: "-50%",
                     opacity: isVisible ? 1 : 0,
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: "#fff",
+                    pointerEvents: "none",
+                    zIndex: 9999,
+                    mixBlendMode: "exclusion",
                 }}
             />
 
-            {/* 2. Trailing Ring */}
+            {/* Trailing Ring */}
             <m.div
-                className="fixed top-0 left-0 w-[40px] h-[40px] border border-white/40 rounded-full pointer-events-none z-[9998] mix-blend-exclusion"
                 style={{
                     x: ringX,
                     y: ringY,
                     translateX: "-50%",
                     translateY: "-50%",
-                    opacity: isVisible ? 1 : 0,
+                    opacity: isVisible ? 0.5 : 0,
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    border: "1px solid rgba(255,255,255,0.4)",
+                    pointerEvents: "none",
+                    zIndex: 9998,
+                    mixBlendMode: "exclusion",
                 }}
             />
         </>

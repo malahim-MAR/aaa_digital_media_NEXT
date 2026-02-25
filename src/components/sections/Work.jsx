@@ -10,7 +10,7 @@ export default function Work() {
         <section id="work" className="section">
             <div className="wrap border-t border-white/5 pt-24">
                 {/* Header */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 32, marginBottom: 96 }} className="md:flex-row md:items-end md:justify-between">
+                <div style={{ display: "flex", flexDirection: "column", gap: 32, marginBottom: 96, marginTop: 32 }} className="md:flex-row md:items-start md:justify-between">
                     <div>
                         <m.span
                             initial={{ opacity: 0, y: 20 }}
