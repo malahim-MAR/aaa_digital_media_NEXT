@@ -10,7 +10,7 @@ export default function Work() {
         <section id="work" className="section">
             <div className="wrap border-t border-white/5 pt-24">
                 {/* Header */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 32, marginBottom: 96, marginTop: 32 }} className="md:flex-row md:items-start md:justify-between">
+                <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: "clamp(40px,8vw,96px)", marginTop: 16 }} className="md:flex-row md:items-start md:justify-between">
                     <div>
                         <m.span
                             initial={{ opacity: 0, y: 20 }}
@@ -50,7 +50,7 @@ export default function Work() {
                 </div>
 
                 {/* Projects Grid */}
-                <div style={{ display: "grid", gap: 80 }}>
+                <div style={{ display: "grid", gap: "clamp(48px,10vw,80px)" }}>
                     {WORK.map((project, index) => (
                         <m.div
                             key={index}
@@ -71,7 +71,7 @@ export default function Work() {
                                     {project.title}
                                 </h3>
                                 <p style={{
-                                    fontSize: 18, color: "#CECECE", marginBottom: 32, lineHeight: 1.6, maxWidth: 480,
+                                    fontSize: "clamp(15px,2.5vw,18px)", color: "#CECECE", marginBottom: 32, lineHeight: 1.6, maxWidth: 480,
                                 }}>
                                     {project.result}
                                 </p>
