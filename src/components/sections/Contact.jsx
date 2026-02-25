@@ -1,15 +1,17 @@
 "use client";
 
 import { m } from "framer-motion";
-import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { CONTACT_INFO } from "@/lib/data";
+import { Icon } from "@/lib/icons";
+
 
 export default function Contact() {
     return (
         <section id="contact" className="section relative overflow-hidden">
             <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none" />
 
-            <div className="wrap border-t border-white/5 pt-24">
+            <div className="wrap" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "clamp(40px,8vw,96px)" }}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-start">
                     {/* Info */}
                     <div>
@@ -56,7 +58,7 @@ export default function Contact() {
                                         border: "1px solid rgba(0, 166, 251, 0.15)",
                                         display: "flex", alignItems: "center", justifyContent: "center", color: "#00A6FB"
                                     }}>
-                                        {item.icon}
+                                        <Icon name={item.iconName} size={22} />
                                     </div>
                                     <div>
                                         <p style={{ fontSize: 13, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>

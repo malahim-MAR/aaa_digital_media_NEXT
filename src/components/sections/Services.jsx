@@ -3,6 +3,8 @@
 import { m } from "framer-motion";
 import Link from "next/link";
 import { SERVICES } from "@/lib/data";
+import { Icon } from "@/lib/icons";
+
 
 export default function Services() {
     return (
@@ -65,7 +67,7 @@ export default function Services() {
                                     display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 24,
                                     color: "#00A6FB", /* Cyan Icon */
                                 }}>
-                                    {s.icon}
+                                    <Icon name={s.iconName} size={22} />
                                 </div>
                                 <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 16, color: "#FFFFFF" }}>{s.title}</h3>
                                 <p style={{ fontSize: 14, color: "#CECECE", lineHeight: 1.6, marginBottom: 24 }}>

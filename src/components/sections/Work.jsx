@@ -8,7 +8,7 @@ import { WORK } from "@/lib/data";
 export default function Work() {
     return (
         <section id="work" className="section">
-            <div className="wrap border-t border-white/5 pt-24">
+            <div className="wrap" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "clamp(40px,8vw,96px)" }}>
                 {/* Header */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: "clamp(40px,8vw,96px)", marginTop: 16 }} className="md:flex-row md:items-start md:justify-between">
                     <div>

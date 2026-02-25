@@ -4,6 +4,8 @@ import { m, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motio
 import Link from "next/link";
 import { Menu, X, ArrowUpRight, ChevronDown, ChevronRight } from "lucide-react";
 import { NAV, SERVICES } from "@/lib/data";
+import { Icon } from "@/lib/icons";
+
 
 export default function Navbar() {
     const { scrollY } = useScroll();
@@ -210,7 +212,7 @@ export default function Navbar() {
                                                     onMouseLeave={e => e.currentTarget.style.background = "transparent"}
                                                 >
                                                     <span style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(0,166,251,0.08)", border: "1px solid rgba(0,166,251,0.15)", display: "flex", alignItems: "center", justifyContent: "center", color: "#00A6FB", flexShrink: 0 }}>
-                                                        <span style={{ width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>{service.icon}</span>
+                                                        <span style={{ width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name={service.iconName} size={16} /></span>
                                                     </span>
                                                     <span style={{ fontSize: 14, fontWeight: 500, color: "#CECECE" }}>{service.title}</span>
                                                     <ChevronRight size={14} style={{ color: "#374151", marginLeft: "auto" }} />
@@ -324,7 +326,7 @@ function DropdownRow({ service }) {
                     color: hov ? "#fff" : "#00A6FB",
                     transition: "all 0.2s",
                 }}>
-                    <span style={{ width: 17, height: 17, display: "flex", alignItems: "center", justifyContent: "center" }}>{service.icon}</span>
+                    <span style={{ width: 17, height: 17, display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name={service.iconName} size={17} /></span>
                 </div>
                 <div>
                     <div style={{ fontSize: 14, fontWeight: 600, color: hov ? "#00A6FB" : "#fff", transition: "color 0.2s", marginBottom: 2 }}>{service.title}</div>

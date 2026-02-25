@@ -5,10 +5,13 @@ import Work from "@/components/sections/Work";
 import Services from "@/components/sections/Services";
 import Process from "@/components/sections/Process";
 import About from "@/components/sections/About";
+import Testimonials from "@/components/sections/Testimonials";
+import FAQ from "@/components/sections/FAQ";
+import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-0 overflow-x-hidden">
+    <div style={{ display: "flex", flexDirection: "column", overflowX: "hidden" }}>
       <Hero />
       <Stats />
       <LogoWall />
@@ -16,6 +19,9 @@ export default function Home() {
       <Services />
       <Process />
       <About />
+      <Testimonials />
+      <FAQ />
+      <Contact />
     </div>
   );
 }
